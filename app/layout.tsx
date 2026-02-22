@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "Thumbnail Generator",
 };
 
+import { Navbar } from "@/components/main/navbar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,8 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans bg-black`}
       >
+        <Navbar />
         {children}
       </body>
     </html>

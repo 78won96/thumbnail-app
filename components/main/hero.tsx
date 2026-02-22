@@ -86,32 +86,7 @@ export function Web3HeroAnimated() {
                     }}
                 />
 
-                {/* ================== NAV ================== */}
-                <header className="relative z-10">
-                    <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 md:px-8">
-                        <div className="flex items-center gap-3">
-                            {/* BRAND SVG LOGO */}
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                                <path d="M10 8L16 12L10 16V8Z" fill="currentColor" />
-                            </svg>
-                            <span className="text-lg font-semibold tracking-tight">Thumbnail-AI</span>
-                        </div>
-
-                        <nav className="hidden items-center gap-8 text-sm/6 text-white/80 md:flex">
-                            {['Generator', 'Showcase', 'Pricing', 'Resources', 'API'].map((i) => (
-                                <a key={i} className="hover:text-white" href="#">{i}</a>
-                            ))}
-                        </nav>
-
-                        <div className="hidden items-center gap-3 md:flex">
-                            <button className="rounded-full px-4 py-2 text-sm text-white/80 hover:text-white">Sign in</button>
-                            <button className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-sm transition hover:bg-white/90">Get Started</button>
-                        </div>
-
-                        <button className="md:hidden rounded-full bg-white/10 px-3 py-2 text-sm">Menu</button>
-                    </div>
-                </header>
+                {/* Header removed and replaced by global Navbar */}
 
                 {/* ================== COPY ================== */}
                 <div className="relative z-10 mx-auto grid w-full max-w-5xl place-items-center px-6 py-16 md:py-24 lg:py-28 text-center">
