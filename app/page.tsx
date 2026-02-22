@@ -1,9 +1,9 @@
-import { ThumbnailHero } from "@/components/main/hero";
+import { Web3HeroAnimated } from "@/components/main/hero";
 
 export default function Home() {
   return (
     <main>
-      <Thumbnail-AI />
+      <Web3HeroAnimated />
     </main>
   );
 }
