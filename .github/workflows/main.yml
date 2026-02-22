@@ -40,10 +40,25 @@ jobs:
         continue-on-error: true
         run: |
           set -x
-          crtx_resp=$(curl -s "${{ env.CORTEX_API_URL }}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" -H "x-xdr-auth-id: ${{ env.CORTEX_API_KEY_ID }}" -H "Authorization: ${{ env.CORTEX_API_KEY }}")
-          crtx_url=$(echo $crtx_resp | jq -r ".signed_url")
-          crtx_file=$(echo $crtx_resp | jq -r ".file_name")
+          crtx_resp=$(curl -s "${{ env.CORTEX_API_URL }}/public_api/v1/unified-cli/releases/download-link?os=linux&architecture=amd64" \
+            -H "x-xdr-auth-id: ${{ env.CORTEX_API_KEY_ID }}" \
+            -H "Authorization: ${{ env.CORTEX_API_KEY }}")
+          
+          crtx_url=$(echo "$crtx_resp" | jq -r ".signed_url // empty")
+          crtx_file=$(echo "$crtx_resp" | jq -r ".file_name // empty")
+
+          if [ -z "$crtx_url" ] || [ "$crtx_url" = "null" ]; then
+            echo "Error: Failed to get download URL. API response: $crtx_resp"
+            exit 1
+          fi
+
           curl -o "$crtx_file" "$crtx_url"
           chmod +x "$crtx_file"
-          ./"$crtx_file" --api-base-url "${{ env.CORTEX_API_URL }}" --api-key "${{ env.CORTEX_API_KEY }}" --api-key-id "${{ env.CORTEX_API_KEY_ID }}" code scan --directory "${{ github.workspace }}" --branch branch --repo-id "${{ github.repository }}" --source "GITHUB_ACTIONS" –output-format json --output-file-path ./output.json --upload-mode no-code
+          ./"$crtx_file" --api-base-url "${{ env.CORTEX_API_URL }}" \
+            --api-key "${{ env.CORTEX_API_KEY }}" \
+            --api-key-id "${{ env.CORTEX_API_KEY_ID }}" \
+            code scan --directory "${{ github.workspace }}" \
+            --branch branch --repo-id "${{ github.repository }}" \
+            --source "GITHUB_ACTIONS" \
+            --output-format json --output-file-path ./output.json --upload-mode no-code
          
